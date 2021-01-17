@@ -3,6 +3,7 @@ module github.com/RAshkettle/rrogue
 go 1.15
 
 require (
+	github.com/bytearena/ecs v1.0.0 // indirect
 	github.com/go-delve/delve v1.5.1 // indirect
 	github.com/hajimehoshi/ebiten v1.12.6
 	github.com/hajimehoshi/ebiten/v2 v2.0.3

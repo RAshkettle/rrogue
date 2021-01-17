@@ -9,14 +9,14 @@ import (
 
 //Game holds all data the entire game will need.
 type Game struct {
-	Tiles []MapTile
+	Map GameMap
 }
 
 //NewGame creates a new Game Object and initializes the data
 //This is a pretty solid refactor candidate for later
 func NewGame() *Game {
 	g := &Game{}
-	g.Tiles = CreateTiles()
+	g.Map = NewGameMap()
 	return g
 
 }
@@ -32,9 +32,11 @@ func (g *Game) Update() error {
 func (g *Game) Draw(screen *ebiten.Image) {
 	//Draw the Map
 	gd := NewGameData()
+	level := g.Map.Dungeons[0].Levels[0]
 	for x := 0; x < gd.ScreenWidth; x++ {
 		for y := 0; y < gd.ScreenHeight; y++ {
-			tile := g.Tiles[GetIndexFromXY(x, y)]
+
+			tile := level.Tiles[level.GetIndexFromXY(x, y)]
 			op := &ebiten.DrawImageOptions{}
 
 			op.GeoM.Translate(float64(tile.PixelX), float64(tile.PixelY))
@@ -44,7 +46,11 @@ func (g *Game) Draw(screen *ebiten.Image) {
 }
 
 //Layout will return the screen dimensions.
-func (g *Game) Layout(w, h int) (int, int) { return 1280, 800 }
+func (g *Game) Layout(w, h int) (int, int) {
+	gd := NewGameData()
+	return gd.TileWidth * gd.ScreenWidth, gd.TileHeight * gd.ScreenHeight
+
+}
 
 func main() {
 

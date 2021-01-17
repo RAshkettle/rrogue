@@ -7,13 +7,12 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
-//GetIndexFromXY gets the index of the map array from a given X,Y TILE coordinate.
-//This coordinate is logical tiles, not pixels.
-func GetIndexFromXY(x int, y int) int {
-	gd := NewGameData()
-	return (y * gd.ScreenWidth) + x
+//Level holds the tile information for a complete dungeon level.
+type Level struct {
+	Tiles []MapTile
 }
 
+//MapTile is a single Tile on a given level
 type MapTile struct {
 	PixelX  int
 	PixelY  int
@@ -21,25 +20,23 @@ type MapTile struct {
 	Image   *ebiten.Image
 }
 
-type GameData struct {
-	ScreenWidth  int
-	ScreenHeight int
-	TileWidth    int
-	TileHeight   int
+//NewLevel creates a new game level in a dungeon.
+func NewLevel() Level {
+	l := Level{}
+	tiles := l.CreateTiles()
+	l.Tiles = tiles
+
+	return l
 }
 
-func NewGameData() GameData {
-	g := GameData{
-		ScreenWidth:  80,
-		ScreenHeight: 50,
-		TileWidth:    16,
-		TileHeight:   16,
-	}
-
-	return g
+//GetIndexFromXY gets the index of the map array from a given X,Y TILE coordinate.
+//This coordinate is logical tiles, not pixels.
+func (level *Level) GetIndexFromXY(x int, y int) int {
+	gd := NewGameData()
+	return (y * gd.ScreenWidth) + x
 }
 
-func CreateTiles() []MapTile {
+func (level *Level) CreateTiles() []MapTile {
 	gd := NewGameData()
 	tiles := make([]MapTile, 0)
 
