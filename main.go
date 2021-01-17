@@ -31,6 +31,7 @@ func NewGame() *Game {
 //Update is called each tic.
 func (g *Game) Update() error {
 
+	TryMovePlayer(g)
 	return nil
 
 }
@@ -40,6 +41,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	//Draw the Map
 	level := g.Map.Dungeons[0].Levels[0]
 	level.DrawLevel(screen)
+	ProcessRenderables(g, level, screen)
 
 }
 
