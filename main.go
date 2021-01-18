@@ -19,9 +19,9 @@ type Game struct {
 //This is a pretty solid refactor candidate for later
 func NewGame() *Game {
 	g := &Game{}
-	world, tags := InitializeWorld()
-
 	g.Map = NewGameMap()
+	world, tags := InitializeWorld(g.Map.CurrentLevel)
+
 	g.WorldTags = tags
 	g.World = world
 	return g
