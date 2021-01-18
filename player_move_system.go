@@ -37,4 +37,8 @@ func TryMovePlayer(g *Game) {
 
 		}
 	}
+	if x != 0 || y != 0 {
+		g.Turn = GetNextState(g.Turn)
+		g.TurnCounter = 0
+	}
 }
