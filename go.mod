@@ -9,6 +9,7 @@ require (
 	github.com/hajimehoshi/ebiten/v2 v2.0.3
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mattn/go-runewidth v0.0.10 // indirect
+	github.com/norendren/go-fov v1.0.1
 	github.com/peterh/liner v1.2.1 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/russross/blackfriday v1.6.0 // indirect
