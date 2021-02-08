@@ -8,6 +8,13 @@ import (
 	"github.com/norendren/go-fov/fov"
 )
 
+type TileType int
+
+const (
+	WALL TileType = iota
+	FLOOR
+)
+
 //Level holds the tile information for a complete dungeon level.
 type Level struct {
 	Tiles         []MapTile
@@ -22,6 +29,7 @@ type MapTile struct {
 	Blocked    bool
 	Image      *ebiten.Image
 	IsRevealed bool
+	TileType   TileType
 }
 
 //NewLevel creates a new game level in a dungeon.
@@ -123,6 +131,7 @@ func (level *Level) createHorizontalTunnel(x1 int, x2 int, y int) {
 		index := level.GetIndexFromXY(x, y)
 		if index > 0 && index < gd.ScreenWidth*gd.ScreenHeight {
 			level.Tiles[index].Blocked = false
+			level.Tiles[index].TileType = FLOOR
 			floor, _, err := ebitenutil.NewImageFromFile("assets/floor.png")
 			if err != nil {
 				log.Fatal(err)
@@ -139,6 +148,7 @@ func (level *Level) createVerticalTunnel(y1 int, y2 int, x int) {
 		index := level.GetIndexFromXY(x, y)
 		if index > 0 && index < gd.ScreenWidth*gd.ScreenHeight {
 			level.Tiles[index].Blocked = false
+			level.Tiles[index].TileType = FLOOR
 			floor, _, err := ebitenutil.NewImageFromFile("assets/floor.png")
 			if err != nil {
 				log.Fatal(err)
@@ -167,6 +177,7 @@ func (level *Level) createTiles() []MapTile {
 				Blocked:    true,
 				Image:      wall,
 				IsRevealed: false,
+				TileType:   WALL,
 			}
 			tiles[index] = tile
 
@@ -180,6 +191,7 @@ func (level *Level) createRoom(room Rect) {
 		for x := room.X1 + 1; x < room.X2; x++ {
 			index := level.GetIndexFromXY(x, y)
 			level.Tiles[index].Blocked = false
+			level.Tiles[index].TileType = FLOOR
 			floor, _, err := ebitenutil.NewImageFromFile("assets/floor.png")
 			if err != nil {
 				log.Fatal(err)
@@ -196,10 +208,9 @@ func (level Level) InBounds(x, y int) bool {
 	return true
 }
 
-//TODO: Change this to check for WALL, not blocked
 func (level Level) IsOpaque(x, y int) bool {
 	idx := level.GetIndexFromXY(x, y)
-	return level.Tiles[idx].Blocked
+	return level.Tiles[idx].TileType == WALL
 }
 
 // Max returns the larger of x or y.

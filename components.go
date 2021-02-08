@@ -14,3 +14,5 @@ type Renderable struct {
 }
 
 type Movable struct{}
+
+type Monster struct{}
