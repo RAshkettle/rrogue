@@ -9,6 +9,7 @@ import (
 
 var position *ecs.Component
 var renderable *ecs.Component
+var monster *ecs.Component
 
 func InitializeWorld(startingLevel Level) (*ecs.Manager, map[string]ecs.Tag) {
 	tags := make(map[string]ecs.Tag)
@@ -18,7 +19,7 @@ func InitializeWorld(startingLevel Level) (*ecs.Manager, map[string]ecs.Tag) {
 	position = manager.NewComponent()
 	renderable = manager.NewComponent()
 	movable := manager.NewComponent()
-	monster := manager.NewComponent()
+	monster = manager.NewComponent()
 
 	playerImg, _, err := ebitenutil.NewImageFromFile("assets/player.png")
 	if err != nil {
@@ -49,7 +50,9 @@ func InitializeWorld(startingLevel Level) (*ecs.Manager, map[string]ecs.Tag) {
 		if room.X1 != startingRoom.X1 {
 			mX, mY := room.Center()
 			manager.NewEntity().
-				AddComponent(monster, Monster{}).
+				AddComponent(monster, &Monster{
+					Name: "Skeleton",
+				}).
 				AddComponent(renderable, &Renderable{
 					Image: skellyImg,
 				}).
@@ -57,6 +60,7 @@ func InitializeWorld(startingLevel Level) (*ecs.Manager, map[string]ecs.Tag) {
 					X: mX,
 					Y: mY,
 				})
+
 		}
 	}
 
@@ -65,6 +69,9 @@ func InitializeWorld(startingLevel Level) (*ecs.Manager, map[string]ecs.Tag) {
 
 	renderables := ecs.BuildTag(renderable, position)
 	tags["renderables"] = renderables
+
+	monsters := ecs.BuildTag(monster, position)
+	tags["monsters"] = monsters
 
 	return manager, tags
 }
