@@ -10,8 +10,8 @@ import (
 
 type TileType int
 
-var floor *ebiten.Image
-var wall *ebiten.Image
+var floor *ebiten.Image = nil
+var wall *ebiten.Image = nil
 
 const (
 	WALL TileType = iota
@@ -38,6 +38,19 @@ type MapTile struct {
 //NewLevel creates a new game level in a dungeon.
 func NewLevel() Level {
 	l := Level{}
+	loadTileImages()
+
+	rooms := make([]Rect, 0)
+	l.Rooms = rooms
+	l.GenerateLevelTiles()
+	l.PlayerVisible = fov.New()
+	return l
+}
+
+func loadTileImages() {
+	if floor != nil && wall != nil {
+		return
+	}
 	var err error
 
 	floor, _, err = ebitenutil.NewImageFromFile("assets/floor.png")
@@ -49,12 +62,6 @@ func NewLevel() Level {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	rooms := make([]Rect, 0)
-	l.Rooms = rooms
-	l.GenerateLevelTiles()
-	l.PlayerVisible = fov.New()
-	return l
 }
 
 //DrawLevel draws the level onto the screen.
