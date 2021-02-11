@@ -5,17 +5,9 @@ import (
 	"math/big"
 )
 
-//Returns a number between the two numbers inclusive.
+//GetRandomBetween returns a number between the two numbers inclusive.
 func GetRandomBetween(low int, high int) int {
-	var randy int = -1
-	for {
-		randy = GetDiceRoll(high)
-		if randy >= low {
-			break
-		}
-	}
-
-	return randy
+	return GetDiceRoll(high-low) + high
 }
 
 //GetRandomInt returns an integer from 0 to the number - 1

@@ -10,6 +10,9 @@ import (
 
 type TileType int
 
+var floor *ebiten.Image
+var wall *ebiten.Image
+
 const (
 	WALL TileType = iota
 	FLOOR
@@ -35,6 +38,17 @@ type MapTile struct {
 //NewLevel creates a new game level in a dungeon.
 func NewLevel() Level {
 	l := Level{}
+	var err error
+
+	floor, _, err = ebitenutil.NewImageFromFile("assets/floor.png")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	wall, _, err = ebitenutil.NewImageFromFile("assets/wall.png")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	rooms := make([]Rect, 0)
 	l.Rooms = rooms
@@ -132,10 +146,6 @@ func (level *Level) createHorizontalTunnel(x1 int, x2 int, y int) {
 		if index > 0 && index < gd.ScreenWidth*gd.ScreenHeight {
 			level.Tiles[index].Blocked = false
 			level.Tiles[index].TileType = FLOOR
-			floor, _, err := ebitenutil.NewImageFromFile("assets/floor.png")
-			if err != nil {
-				log.Fatal(err)
-			}
 			level.Tiles[index].Image = floor
 
 		}
@@ -149,10 +159,6 @@ func (level *Level) createVerticalTunnel(y1 int, y2 int, x int) {
 		if index > 0 && index < gd.ScreenWidth*gd.ScreenHeight {
 			level.Tiles[index].Blocked = false
 			level.Tiles[index].TileType = FLOOR
-			floor, _, err := ebitenutil.NewImageFromFile("assets/floor.png")
-			if err != nil {
-				log.Fatal(err)
-			}
 			level.Tiles[index].Image = floor
 
 		}
@@ -167,10 +173,6 @@ func (level *Level) createTiles() []*MapTile {
 	for x := 0; x < gd.ScreenWidth; x++ {
 		for y := 0; y < gd.ScreenHeight; y++ {
 			index = level.GetIndexFromXY(x, y)
-			wall, _, err := ebitenutil.NewImageFromFile("assets/wall.png")
-			if err != nil {
-				log.Fatal(err)
-			}
 			tile := MapTile{
 				PixelX:     x * gd.TileWidth,
 				PixelY:     y * gd.TileHeight,
@@ -192,10 +194,6 @@ func (level *Level) createRoom(room Rect) {
 			index := level.GetIndexFromXY(x, y)
 			level.Tiles[index].Blocked = false
 			level.Tiles[index].TileType = FLOOR
-			floor, _, err := ebitenutil.NewImageFromFile("assets/floor.png")
-			if err != nil {
-				log.Fatal(err)
-			}
 			level.Tiles[index].Image = floor
 		}
 	}

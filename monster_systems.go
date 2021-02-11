@@ -15,7 +15,7 @@ func UpdateMonster(game *Game) {
 	}
 	for _, result := range game.World.Query(game.WorldTags["monsters"]) {
 		pos := result.Components[position].(*Position)
-		mon := result.Components[monster].(*Monster)
+		//mon := result.Components[monster].(*Monster)
 
 		monsterSees := fov.New()
 		monsterSees.Compute(l, pos.X, pos.Y, 8)
