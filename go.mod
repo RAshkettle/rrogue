@@ -1,23 +1,19 @@
 module github.com/RAshkettle/rrogue
 
-go 1.15
+go 1.17
 
 require (
 	github.com/bytearena/ecs v1.0.0
-	github.com/go-delve/delve v1.5.1 // indirect
-	github.com/hajimehoshi/ebiten v1.12.6
-	github.com/hajimehoshi/ebiten/v2 v2.0.3
-	github.com/mattn/go-colorable v0.1.8 // indirect
-	github.com/mattn/go-runewidth v0.0.10 // indirect
+	github.com/hajimehoshi/ebiten/v2 v2.2.4
 	github.com/norendren/go-fov v1.0.1
-	github.com/peterh/liner v1.2.1 // indirect
-	github.com/rivo/uniseg v0.2.0 // indirect
-	github.com/russross/blackfriday v1.6.0 // indirect
-	github.com/russross/blackfriday/v2 v2.1.0 // indirect
-	github.com/sirupsen/logrus v1.7.0 // indirect
-	github.com/spf13/cobra v1.1.1 // indirect
-	go.starlark.net v0.0.0-20210114021256-8756d3ec1770 // indirect
-	golang.org/x/arch v0.0.0-20210105144330-cfa462d59626 // indirect
-	golang.org/x/sys v0.0.0-20210113181707-4bcb84eeeb78 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
+)
+
+require (
+	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20210727001814-0db043d8d5be // indirect
+	github.com/jezek/xgb v0.0.0-20210312150743-0e0f116e1240 // indirect
+	golang.org/x/exp v0.0.0-20191030013958-a1ab85dbe136 // indirect
+	golang.org/x/image v0.0.0-20210628002857-a66eb6448b8d // indirect
+	golang.org/x/mobile v0.0.0-20210902104108-5d9a33257ab5 // indirect
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
+	golang.org/x/sys v0.0.0-20210917161153-d61c044b1678 // indirect
 )
