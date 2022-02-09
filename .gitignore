@@ -6,6 +6,7 @@
 *.dylib
 
 rrogue
+rrogue.wasm
 # Test binary, built with `go test -c`
 *.test
 
